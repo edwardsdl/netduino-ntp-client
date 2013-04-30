@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/edwardsdl/netduino-ntp-client/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/edwardsdl/netduino-ntp-client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2013</copyright>
+    <tags>C# Netduino NTP</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\**\*.pe" target="lib\netmf42" />
+  </files>
+</package>
