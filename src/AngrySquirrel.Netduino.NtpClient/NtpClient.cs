@@ -19,47 +19,61 @@ namespace AngrySquirrel.Netduino.NtpClient
         /// </returns>
         public static DateTime GetDateTime()
         {
-            throw new NotImplementedException();
+            var ntpPacket = new NtpPacket
+                {
+                    LeapIndicator = LeapIndicator.NoWarning, 
+                    Mode = Mode.Client, 
+                    VersionNumber = 4
+                };
+
+            return Send(ntpPacket).TransmitTimestamp;
         }
 
         /// <summary>
-        /// Gets the current date and time using the given <see cref="NtpRequest"/>
+        /// Gets the current date and time using the given <see cref="NtpPacket"/>
         /// </summary>
-        /// <param name="ntpRequest">
-        /// The <see cref="NtpRequest"/> object to use when querying the network time server
+        /// <param name="ntpPacket">
+        /// The <see cref="NtpPacket"/> object to use when querying the network time server
         /// </param>
         /// <param name="host">
+        /// The hostname of the network time server to connect to
         /// </param>
         /// <param name="port">
+        /// The port of the network time server to connect to
         /// </param>
         /// <returns>
-        /// The current date and time
+        /// The response from the NTP server
         /// </returns>
-        public static DateTime GetDateTime(NtpRequest ntpRequest, string host = "time.windows.com", int port = 123)
+        public static NtpPacket Send(NtpPacket ntpPacket, string host = "time.nist.gov", int port = 123)
         {
             var hostEntry = Dns.GetHostEntry(host);
             foreach (var address in hostEntry.AddressList)
             {
-                if (address == null)
+                if (address != null)
                 {
-                    continue;
-                }
+                    var ipEndPoint = new IPEndPoint(address, port);
 
-                var ipEndPoint = new IPEndPoint(address, port);
+                    var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                    try
+                    {
+                        socket.Connect(ipEndPoint);
+                        socket.Send(ntpPacket.Bytes);
 
-                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                try
-                {
-                    socket.Connect(ipEndPoint);
-                    socket.Send(ntpRequest.ToByteArray());
-                }
-                finally
-                {
-                    socket.Close();
+                        var buffer = new byte[48];
+                        socket.Receive(buffer);
+
+                        ntpPacket = new NtpPacket(buffer);
+                    }
+                    finally
+                    {
+                        socket.Close();
+                    }
+
+                    break;
                 }
             }
 
-            return DateTime.Now;
+            return ntpPacket;
         }
 
         #endregion

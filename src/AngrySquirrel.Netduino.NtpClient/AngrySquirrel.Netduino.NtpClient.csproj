@@ -35,15 +35,18 @@
     <Compile Include="LeapIndicator.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="NtpClient.cs" />
-    <Compile Include="NtpRequest.cs" />
-    <Compile Include="NtpResponse.cs" />
+    <Compile Include="NtpPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stratum.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AngrySquirrel.Netduino.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AngrySquirrel.Netduino.Utilities.1.0.0.0\lib\netmf42\AngrySquirrel.Netduino.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documentation\RFC-5905.pdf" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

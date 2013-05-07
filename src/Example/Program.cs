@@ -1,4 +1,5 @@
 ﻿using AngrySquirrel.Netduino.NtpClient;
+using Microsoft.SPOT.Hardware;
 
 namespace Example
 {
@@ -14,6 +15,8 @@ namespace Example
         /// </summary>
         public static void Main()
         {
+            var dateTime = NtpClient.GetDateTime();
+            Utility.SetLocalTime(dateTime);
         }
 
         #endregion

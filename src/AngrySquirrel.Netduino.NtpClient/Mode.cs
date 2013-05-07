@@ -1,43 +1,18 @@
 namespace AngrySquirrel.Netduino.NtpClient
 {
     /// <summary>
+    /// A set of values indicating how an NTP server can be associated with another
     /// </summary>
     public enum Mode
     {
         /// <summary>
+        /// The NTP host is configured as a client
         /// </summary>
-        None = -1, 
+        Client = 3, 
 
         /// <summary>
+        /// The NTP host is configured as a server
         /// </summary>
-        Reserved, 
-
-        /// <summary>
-        /// </summary>
-        SymmetricActive, 
-
-        /// <summary>
-        /// </summary>
-        SymmetricPassive, 
-
-        /// <summary>
-        /// </summary>
-        Client, 
-
-        /// <summary>
-        /// </summary>
-        Server, 
-
-        /// <summary>
-        /// </summary>
-        Broadcast, 
-
-        /// <summary>
-        /// </summary>
-        NtpControlMessage, 
-
-        /// <summary>
-        /// </summary>
-        ReservedForPrivateUse
+        Server = 4, 
     }
 }
